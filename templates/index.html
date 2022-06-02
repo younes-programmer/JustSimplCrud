@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-around align-items-center gab-4 my-4">
+                <div class="crud-title">
+                    <h2>Manage<b>Employees </b></h2>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#my-modal">Add Employee</button>
+            </div>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+                {% for row in employees %}
+
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.phone }}</td>
+                    <td><a href="" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit">Edit</a>
+                    <a href="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modaledelete" onclick="return confirm('Are you sure')">Delete</a>
+                    </td>
+                </tr>
+                <div id="modaledit" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Employee</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post">
+                                    <div class="form-group mb-3">
+                                        <input type="hidden" class="form-control" name="id"  value="id">
+                                        <input type="text" class="form-control" name="name" value="Mark Moral">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label>Email:</label>
+                                        <input type="Email" class="form-control" name="email" value="j@M.com">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label>Phone:</label>
+                                        <input type="text" class="form-control" name="phone" value="29029320932">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <button class="btn btn-primary w-100" type="submit">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div id="my-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Employee</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('insert') }}" method="post">
+                        <div class="form-group mb-3">
+                            <label>Name:</label>
+                            <input type="text" class="form-control" name="name" required="1">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Email:</label>
+                            <input type="Email" class="form-control" name="email" required="1">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Phone:</label>
+                            <input type="text" class="form-control" name="phone" required="1">
+                        </div>
+                        <div class="form-group mb-3">
+                            <button class="btn btn-primary w-100" type="submit">Add Employee</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
